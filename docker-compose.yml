@@ -84,7 +84,7 @@ services:
                 CWL_AIRFLOW_VERSION: ${CWL_AIRFLOW_VERSION}
         container_name: apiserver
         ports:
-            - ${CWL_AIRFLOW_API_PORT}:8081
+            - ${CWL_AIRFLOW_API_PORT}:8082
         <<: [*airflow_volumes, *airflow_env_var, *airflow_env_file]
         restart: always
         command: start_apiserver.sh --replay 60 --host 0.0.0.0
