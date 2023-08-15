@@ -17,6 +17,14 @@ RUN apt-get update && \
     sudo apt-get update && \
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
+# Install MySQL client
+RUN apt-get update && \
+    apt-get install -y mysql-client
+
+# Install python MySQL client library
+RUN apt-get install -y python3-dev default-libmysqlclient-dev && \
+    pip3 install mysqlclient
+
 COPY ./scripts/start_webserver.sh /usr/local/bin/start_webserver.sh
 COPY ./scripts/start_scheduler.sh /usr/local/bin/start_scheduler.sh
 COPY ./scripts/start_apiserver.sh /usr/local/bin/start_apiserver.sh
@@ -34,7 +42,6 @@ RUN git clone ${CWL_AIRFLOW_URL} /cwl-airflow && \
     apt-get purge && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* && \
     strip /usr/local/bin/*; true
-
 
 RUN pip3 install /cwl-airflow
 
